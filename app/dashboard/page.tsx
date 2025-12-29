@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { Package, AlertTriangle, Boxes } from "lucide-react";
 
 interface DashboardStats {
@@ -74,6 +75,41 @@ export default function DashboardPage() {
     return (
       <div className="p-4 border border-destructive bg-destructive/10 rounded-lg text-destructive">
         {error}
+      </div>
+    );
+  }
+
+  if (stats?.totalProducts === 0) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground">
+            Overview of your inventory and stock levels.
+          </p>
+        </div>
+
+        <Card className="flex flex-col items-center justify-center p-12 text-center border-dashed border-2">
+          <div className="flex aspect-square size-16 items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
+            <Package className="size-8" />
+          </div>
+          <CardHeader>
+            <CardTitle className="text-2xl">Welcome to Invento!</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground max-w-sm mx-auto">
+              Your inventory is currently empty. Start by adding your first product to see insights, stock levels, and low-stock alerts.
+            </p>
+            <div className="pt-4">
+              <a href="/dashboard/products">
+                <Button size="lg" className="cursor-pointer">
+                  <Boxes className="mr-2 h-5 w-5" />
+                  Add My First Product
+                </Button>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
