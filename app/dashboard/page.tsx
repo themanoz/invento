@@ -36,7 +36,7 @@ export default function DashboardPage() {
         }
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dashboard`,
           {
             method: "GET",
             headers: {

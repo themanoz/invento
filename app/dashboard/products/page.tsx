@@ -42,7 +42,7 @@ export default function ProductsPage() {
             }
 
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/products`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`,
                 {
                     method: "GET",
                     headers: {
@@ -83,7 +83,7 @@ export default function ProductsPage() {
         try {
             const token = authService.getToken();
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/products`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`,
                 {
                     method: "POST",
                     headers: {
@@ -111,7 +111,7 @@ export default function ProductsPage() {
         try {
             const token = authService.getToken();
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/${editingProduct.id}`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${editingProduct.id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -139,7 +139,7 @@ export default function ProductsPage() {
         try {
             const token = authService.getToken();
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/${id}`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -218,42 +218,57 @@ export default function ProductsPage() {
                                 <TableHead>Name</TableHead>
                                 <TableHead>SKU</TableHead>
                                 <TableHead>Quantity</TableHead>
+                                <TableHead>Status</TableHead>
                                 <TableHead>Selling Price</TableHead>
                                 <TableHead className="text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {filteredProducts.map((product) => (
-                                <TableRow key={product.id}>
-                                    <TableCell className="font-medium">{product.name}</TableCell>
-                                    <TableCell>{product.sku}</TableCell>
-                                    <TableCell>
-                                        <span className={product.quantityOnHand <= (product.lowStockThreshold || 5) ? "text-destructive font-bold" : ""}>
-                                            {product.quantityOnHand}
-                                        </span>
-                                    </TableCell>
-                                    <TableCell>${product.sellingPrice?.toFixed(2) || "0.00"}</TableCell>
-                                    <TableCell className="text-right">
-                                        <div className="flex justify-end gap-2">
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => setEditingProduct(product)}
-                                            >
-                                                <Edit2 className="h-4 w-4" />
-                                            </Button>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                                                onClick={() => handleDeleteProduct(product.id)}
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {filteredProducts.map((product) => {
+                                const isLowStock = product.quantityOnHand <= (product.lowStockThreshold || 5);
+                                return (
+                                    <TableRow key={product.id}>
+                                        <TableCell className="font-medium">{product.name}</TableCell>
+                                        <TableCell>{product.sku}</TableCell>
+                                        <TableCell>
+                                            <span className={isLowStock ? "text-destructive font-bold" : ""}>
+                                                {product.quantityOnHand}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell>
+                                            {isLowStock ? (
+                                                <span className="inline-flex items-center rounded-full bg-destructive/10 px-2.5 py-0.5 text-xs font-semibold text-destructive">
+                                                    Low Stock
+                                                </span>
+                                            ) : (
+                                                <span className="inline-flex items-center rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-semibold text-green-500">
+                                                    Healthy
+                                                </span>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>${product.sellingPrice?.toFixed(2) || "0.00"}</TableCell>
+                                        <TableCell className="text-right">
+                                            <div className="flex justify-end gap-2">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    onClick={() => setEditingProduct(product)}
+                                                >
+                                                    <Edit2 className="h-4 w-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                                                    onClick={() => handleDeleteProduct(product.id)}
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
                         </TableBody>
                     </Table>
                 </div>

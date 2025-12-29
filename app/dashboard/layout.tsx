@@ -20,7 +20,7 @@ export default function DashboardLayout({
         if (!token) return;
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dashboard`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

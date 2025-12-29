@@ -22,7 +22,7 @@ export default function SettingsPage() {
                 if (!token) return;
 
                 const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/settings`,
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ export default function SettingsPage() {
         try {
             const token = authService.getToken();
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/settings`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`,
                 {
                     method: "PUT",
                     headers: {
