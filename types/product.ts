@@ -5,8 +5,8 @@ export interface Product {
     sku: string;
     description?: string;
     quantityOnHand: number;
-    costPrice?: number;
-    sellingPrice?: number;
+    costPrice?: number | string;
+    sellingPrice?: number | string;
     lowStockThreshold?: number;
     createdAt: string;
     updatedAt: string;

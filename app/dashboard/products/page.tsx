@@ -272,7 +272,7 @@ export default function ProductsPage() {
                                                 </span>
                                             )}
                                         </TableCell>
-                                        <TableCell>${product.sellingPrice?.toFixed(2) || "0.00"}</TableCell>
+                                        <TableCell>${Number(product.sellingPrice || 0).toFixed(2)}</TableCell>
                                         <TableCell className="text-right">
                                             <div className="flex justify-end gap-2">
                                                 <Button
