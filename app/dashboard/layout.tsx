@@ -30,8 +30,7 @@ export default function DashboardLayout({
 
         if (response.ok) {
           const result = await response.json();
-          // Assuming the backend returns organizationName or we can derive it
-          if (result.data?.organizationName) {
+          if (result.success && result.data?.organizationName) {
             setOrganizationName(result.data.organizationName);
           }
         }
