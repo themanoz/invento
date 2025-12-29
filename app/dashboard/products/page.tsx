@@ -21,7 +21,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProductForm } from "@/components/ProductForm";
-import { Plus, Search, Edit2, Trash2, AlertCircle } from "lucide-react";
+import { Plus, Search, Edit2, Trash2, AlertCircle, Package } from "lucide-react";
+import {
+    Empty,
+    EmptyHeader,
+    EmptyTitle,
+    EmptyDescription,
+    EmptyContent,
+    EmptyMedia,
+} from "@/components/ui/empty";
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -207,9 +215,27 @@ export default function ProductsPage() {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                 </div>
             ) : filteredProducts.length === 0 ? (
-                <div className="text-center py-20 border rounded-lg bg-muted/20">
-                    <p className="text-muted-foreground">No products found.</p>
-                </div>
+                <Empty className="py-20">
+                    <EmptyMedia variant="icon">
+                        <Package className="size-6" />
+                    </EmptyMedia>
+                    <EmptyHeader>
+                        <EmptyTitle>No products found</EmptyTitle>
+                        <EmptyDescription>
+                            {searchQuery
+                                ? `We couldn't find any products matching "${searchQuery}".`
+                                : "You haven't added any products yet. Get started by creating your first one!"}
+                        </EmptyDescription>
+                    </EmptyHeader>
+                    {!searchQuery && (
+                        <EmptyContent>
+                            <Button onClick={() => setIsAddDialogOpen(true)}>
+                                <Plus className="mr-2 h-4 w-4" />
+                                Add Your First Product
+                            </Button>
+                        </EmptyContent>
+                    )}
+                </Empty>
             ) : (
                 <div className="border rounded-lg overflow-hidden">
                     <Table>

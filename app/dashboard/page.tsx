@@ -13,6 +13,14 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Package, AlertTriangle, Boxes } from "lucide-react";
+import {
+  Empty,
+  EmptyHeader,
+  EmptyTitle,
+  EmptyDescription,
+  EmptyContent,
+  EmptyMedia,
+} from "@/components/ui/empty";
 
 interface DashboardStats {
   totalProducts: number;
@@ -89,27 +97,25 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <Card className="flex flex-col items-center justify-center p-12 text-center border-dashed border-2">
-          <div className="flex aspect-square size-16 items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
-            <Package className="size-8" />
-          </div>
-          <CardHeader>
-            <CardTitle className="text-2xl">Welcome to Invento!</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-muted-foreground max-w-sm mx-auto">
+        <Empty className="border-2">
+          <EmptyMedia variant="icon">
+            <Package className="size-6" />
+          </EmptyMedia>
+          <EmptyHeader>
+            <EmptyTitle>Welcome to Invento!</EmptyTitle>
+            <EmptyDescription>
               Your inventory is currently empty. Start by adding your first product to see insights, stock levels, and low-stock alerts.
-            </p>
-            <div className="pt-4">
-              <a href="/dashboard/products">
-                <Button size="lg" className="cursor-pointer">
-                  <Boxes className="mr-2 h-5 w-5" />
-                  Add My First Product
-                </Button>
-              </a>
-            </div>
-          </CardContent>
-        </Card>
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <a href="/dashboard/products">
+              <Button size="lg" className="cursor-pointer">
+                <Boxes className="mr-2 h-5 w-5" />
+                Add My First Product
+              </Button>
+            </a>
+          </EmptyContent>
+        </Empty>
       </div>
     );
   }
