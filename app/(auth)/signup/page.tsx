@@ -41,7 +41,7 @@ export default function page() {
       router.push("/signin");
     } catch (error) {
       console.error(error);
-      alert("Login failed");
+      alert("Registration failed");
     }
   };
   return (
